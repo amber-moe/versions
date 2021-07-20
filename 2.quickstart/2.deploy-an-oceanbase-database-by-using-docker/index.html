@@ -9,19 +9,19 @@
       
       
       
-      <link rel="icon" href="/assets/images/favicon.png">
+      <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.1.11">
     
     
       
-        <title><SITE NAME></title>
+        <title>在 CentOS7 镜像上部署 OceanBase 数据库 - <SITE NAME></title>
       
     
     
-      <link rel="stylesheet" href="/assets/stylesheets/main.3754935a.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.3754935a.min.css">
       
         
-        <link rel="stylesheet" href="/assets/stylesheets/palette.f1a3b89f.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.f1a3b89f.min.css">
         
       
     
@@ -53,12 +53,17 @@
     <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
   
     
-    <script>function __prefix(e){return new URL("/",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    <script>function __prefix(e){return new URL("../..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
+      
+        
+        <a href="#centos7-oceanbase" class="md-skip">
+          Skip to content
+        </a>
       
     </div>
     <div data-md-component="announce">
@@ -67,7 +72,7 @@
     
       <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="/." title="&lt;SITE NAME&gt;" class="md-header__button md-logo" aria-label="<SITE NAME>" data-md-component="logo">
+    <a href="../.." title="&lt;SITE NAME&gt;" class="md-header__button md-logo" aria-label="<SITE NAME>" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
@@ -86,7 +91,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              
+              在 CentOS7 镜像上部署 OceanBase 数据库
             
           </span>
         </div>
@@ -147,7 +152,7 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="/." title="&lt;SITE NAME&gt;" class="md-nav__button md-logo" aria-label="<SITE NAME>" data-md-component="logo">
+    <a href="../.." title="&lt;SITE NAME&gt;" class="md-nav__button md-logo" aria-label="<SITE NAME>" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
@@ -166,7 +171,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/." class="md-nav__link">
+      <a href="../.." class="md-nav__link">
         Home
       </a>
     </li>
@@ -202,7 +207,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/1.about-oceanbase-database/1.what-is-oceanbase/" class="md-nav__link">
+      <a href="../../1.about-oceanbase-database/1.what-is-oceanbase/" class="md-nav__link">
         什么是 OceanBase 数据库
       </a>
     </li>
@@ -214,7 +219,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/1.about-oceanbase-database/2.noun-interpretation/" class="md-nav__link">
+      <a href="../../1.about-oceanbase-database/2.noun-interpretation/" class="md-nav__link">
         名词解释
       </a>
     </li>
@@ -233,12 +238,14 @@
 
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
       
       <label class="md-nav__link" for="__nav_3">
         快速入门
@@ -256,7 +263,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/2.quickstart/1.quick-start-guide/" class="md-nav__link">
+      <a href="../1.quick-start-guide/" class="md-nav__link">
         快速入门指南
       </a>
     </li>
@@ -266,11 +273,58 @@
             
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="/2.quickstart/2.deploy-an-oceanbase-database-by-using-docker/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          在 CentOS7 镜像上部署 OceanBase 数据库
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         在 CentOS7 镜像上部署 OceanBase 数据库
       </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    前提条件
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    操作步骤
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -280,7 +334,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/2.quickstart/3.use-obd-to-obtain-the-oceanbase-database/" class="md-nav__link">
+      <a href="../3.use-obd-to-obtain-the-oceanbase-database/" class="md-nav__link">
         安装 OBD
       </a>
     </li>
@@ -292,7 +346,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/2.quickstart/4.deploy-the-oceanbase-database-by-using-obd/" class="md-nav__link">
+      <a href="../4.deploy-the-oceanbase-database-by-using-obd/" class="md-nav__link">
         使用 OBD 部署 OceanBase 数据库
       </a>
     </li>
@@ -304,7 +358,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/2.quickstart/5.sgco3g/" class="md-nav__link">
+      <a href="../5.sgco3g/" class="md-nav__link">
         OceanBase 数据库通用问题排查方法
       </a>
     </li>
@@ -346,7 +400,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/4.installation-and-deployment/1.resource-preparation/" class="md-nav__link">
+      <a href="../../4.installation-and-deployment/1.resource-preparation/" class="md-nav__link">
         资源准备
       </a>
     </li>
@@ -358,7 +412,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/4.installation-and-deployment/2.install-the-oceanbase-database-by-using-the-rpm-package/" class="md-nav__link">
+      <a href="../../4.installation-and-deployment/2.install-the-oceanbase-database-by-using-the-rpm-package/" class="md-nav__link">
         使用 RPM 包安装 OceanBase 数据库
       </a>
     </li>
@@ -370,7 +424,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/4.installation-and-deployment/3.get-the-oceanbase-database-by-using-source-code/" class="md-nav__link">
+      <a href="../../4.installation-and-deployment/3.get-the-oceanbase-database-by-using-source-code/" class="md-nav__link">
         使用源码构建 OceanBase 数据库
       </a>
     </li>
@@ -412,7 +466,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/15.community-contribution/15.1%20how-to-contribute/" class="md-nav__link">
+      <a href="../../15.community-contribution/15.1%20how-to-contribute/" class="md-nav__link">
         如何贡献
       </a>
     </li>
@@ -432,11 +486,106 @@
               </div>
             
             
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    前提条件
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    操作步骤
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
           
           <div class="md-content" data-md-component="content">
             <article class="md-content__inner md-typeset">
               
-  <h1>404 - Not found</h1>
+                
+                
+                <h1 id="centos7-oceanbase">在 CentOS7 镜像上部署 OceanBase 数据库</h1>
+<p>OceanBase 数据库支持在 CentOS7 上运行。本文介绍如何在 CentOS7 的 Docker 镜像上部署 OceanBase 数据库。</p>
+<h2 id="_1">前提条件</h2>
+<p>在 CentOS7 的 Docker 镜像上部署 OceanBase 数据库之前，您需要确认以下信息：</p>
+<ul>
+<li>您已经安装了 Docker 和 Git。</li>
+</ul>
+<p>Docker 安装详情，参考 <a href="https://www.docker.com/get-started">Docker 文档</a>。</p>
+<p>Git 安装详情，参考 <a href="https://git-scm.com/book/en/v2/Getting-Started-Installing-Git">Git 文档</a>。</p>
+<ul>
+<li>您已经启动了 Docker。</li>
+</ul>
+<h2 id="_2">操作步骤</h2>
+<p>按照以下步骤下载 CentOS7 镜像并部署 OceanBase 数据库。</p>
+<ol>
+<li>
+<p>拉取 CentOS7 镜像。</p>
+<p>docker pull centos:7
+   docker run -d -i -t centos:7 /bin/bash
+   docker exec -it <CONTAINER ID> /bin/bash</p>
+</li>
+</ol>
+<p><strong>注意</strong></p>
+<p>您必须将 <code>CONTAINER ID</code> 替换为您的 centos:7 容器 ID。</p>
+<ol>
+<li>
+<p>使用 OBD 部署 OceanBase 数据库。</p>
+<p>yum install -y yum-utils
+   yum-config-manager --add-repohttps://mirrors.aliyun.com/oceanbase/OceanBase.repo
+   yum install -y ob-deploy
+   source/etc/profile.d/obd.sh
+   git clonehttps://github.com/oceanbase/obdeploy.git
+   cd obdeploy
+   obd cluster deploy c1 -c ./example/mini-local-example.yaml</p>
+</li>
+</ol>
+<p>详细信息，参考 <a href="https://open.oceanbase.com/quickStart">快速上手</a>。</p>
+<ol>
+<li>增加 Docker 内存至 8G。</li>
+</ol>
+<p>详细信息，Mac 用户参考 <a href="https://docs.docker.com/docker-for-mac/#memory">Docker 桌面版 Mac 用户手册</a>，Window 用户参考 <a href="https://docs.docker.com/docker-for-windows/#advanced">Docker 桌面版 Windows 用户手册</a>。</p>
+<ol>
+<li>
+<p>连接 OceanBase 数据库。</p>
+<p>yum install -y obclient
+   obd cluster start c1
+   obclient -h127.0.0.1 -P2881 -uroot</p>
+</li>
+</ol>
+<p>详细信息，参考 <a href="https://open.oceanbase.com/quickStart">快速上手</a>。</p>
+                
+              
+              
+                
+
 
               
             </article>
@@ -447,6 +596,41 @@
       
         
 <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../1.quick-start-guide/" class="md-footer__link md-footer__link--prev" aria-label="Previous: 快速入门指南" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              快速入门指南
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../3.use-obd-to-obtain-the-oceanbase-database/" class="md-footer__link md-footer__link--next" aria-label="Next: 安装 OBD" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              安装 OBD
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
@@ -467,10 +651,10 @@
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "/", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "/assets/javascripts/workers/search.477d984a.min.js", "version": null}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.477d984a.min.js", "version": null}</script>
     
     
-      <script src="/assets/javascripts/bundle.ddd52ceb.min.js"></script>
+      <script src="../../assets/javascripts/bundle.ddd52ceb.min.js"></script>
       
     
   </body>

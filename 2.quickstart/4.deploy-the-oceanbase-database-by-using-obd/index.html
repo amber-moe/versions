@@ -1,0 +1,800 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.1.11">
+    
+    
+      
+        <title>使用 OBD 部署 OceanBase 数据库 - <SITE NAME></title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.3754935a.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.f1a3b89f.min.css">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+    
+    
+      
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+  
+    
+    <script>function __prefix(e){return new URL("../..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#obd-oceanbase" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="&lt;SITE NAME&gt;" class="md-header__button md-logo" aria-label="<SITE NAME>" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            <SITE NAME>
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              使用 OBD 部署 OceanBase 数据库
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="&lt;SITE NAME&gt;" class="md-nav__button md-logo" aria-label="<SITE NAME>" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <SITE NAME>
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      <label class="md-nav__link" for="__nav_2">
+        了解 OceanBase 数据库
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="了解 OceanBase 数据库" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          了解 OceanBase 数据库
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1.about-oceanbase-database/1.what-is-oceanbase/" class="md-nav__link">
+        什么是 OceanBase 数据库
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1.about-oceanbase-database/2.noun-interpretation/" class="md-nav__link">
+        名词解释
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
+      
+      <label class="md-nav__link" for="__nav_3">
+        快速入门
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="快速入门" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          快速入门
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1.quick-start-guide/" class="md-nav__link">
+        快速入门指南
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.deploy-an-oceanbase-database-by-using-docker/" class="md-nav__link">
+        在 CentOS7 镜像上部署 OceanBase 数据库
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3.use-obd-to-obtain-the-oceanbase-database/" class="md-nav__link">
+        安装 OBD
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          使用 OBD 部署 OceanBase 数据库
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        使用 OBD 部署 OceanBase 数据库
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    名词解释
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    前提条件
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    修改配置文件
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#oceanbase" class="md-nav__link">
+    启动 OceanBase 数据库
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#oceanbase_1" class="md-nav__link">
+    连接 OceanBase 数据库
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    （可选）验证集群
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5.sgco3g/" class="md-nav__link">
+        OceanBase 数据库通用问题排查方法
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      <label class="md-nav__link" for="__nav_4">
+        安装部署
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="安装部署" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          安装部署
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../4.installation-and-deployment/1.resource-preparation/" class="md-nav__link">
+        资源准备
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../4.installation-and-deployment/2.install-the-oceanbase-database-by-using-the-rpm-package/" class="md-nav__link">
+        使用 RPM 包安装 OceanBase 数据库
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../4.installation-and-deployment/3.get-the-oceanbase-database-by-using-source-code/" class="md-nav__link">
+        使用源码构建 OceanBase 数据库
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      <label class="md-nav__link" for="__nav_5">
+        社区贡献
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="社区贡献" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          社区贡献
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../15.community-contribution/15.1%20how-to-contribute/" class="md-nav__link">
+        如何贡献
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    名词解释
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    前提条件
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    修改配置文件
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#oceanbase" class="md-nav__link">
+    启动 OceanBase 数据库
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#oceanbase_1" class="md-nav__link">
+    连接 OceanBase 数据库
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    （可选）验证集群
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="obd-oceanbase">使用 OBD 部署 OceanBase 数据库</h1>
+<p>本文介绍如何使用 OBD 部署 OceanBase 数据库。</p>
+<h2 id="_1">名词解释</h2>
+<ul>
+<li>中控机器</li>
+</ul>
+<p>存储 OceanBase 数据库安装包和集群配置信息的机器。</p>
+<ul>
+<li>目标机器</li>
+</ul>
+<p>安装 OceanBase 数据库的机器。</p>
+<h2 id="_2">前提条件</h2>
+<p>在连接 OceanBase 数据库之前，请您确认以下信息：</p>
+<ul>
+<li>
+<p>您已经在中控机器安装了 OBD。详细信息，参考 <a href="">安装 OBD</a>。</p>
+</li>
+<li>
+<p>您已经在目标机器安装了 OceanBase 数据库。</p>
+</li>
+<li>
+<p>您已经在中控机器安装了 OceanBase 数据库的客户端 OBClient。详细信息，参考 <a href="https://github.com/oceanbase/obclient/blob/master/README.md">OBClient 文档</a>。</p>
+</li>
+</ul>
+<h2 id="_3">修改配置文件</h2>
+<ol>
+<li>从 GitHub 上下载对应的配置文件模板。</li>
+</ol>
+<p>如果您采用本地安装，即中控机器和目标机器是同一台机器，请下载 <a href="https://github.com/oceanbase/obdeploy/blob/master/example/mini-single-example.yaml">本地安装配置文件</a>。</p>
+<p>如果您采用单机安装，即中控机器和目标机器不是同一台机器，且目标机器只有一台，请下载 <a href="https://github.com/oceanbase/obdeploy/blob/master/example/mini-local-example.yaml">单机安装配置文件</a>。</p>
+<p>如果您采用分布式安装，即中控机器和目标机器不是同一台机器，且目标机器有多台，请下载 <a href="https://github.com/oceanbase/obdeploy/blob/master/example/mini-distributed-example.yaml">分布式安装配置文件</a>。
+   <strong>注意</strong></p>
+<p>此处以本地安装为例，介绍如何修改配置文件。您必须按照您的安装方式选择对应的配置文件模板。</p>
+<ol>
+<li>
+<p>在配置文件顶部添加用户密码信息。</p>
+<p>user:
+     username: &lt;您的账号名&gt;
+     password: &lt;您的登录密码&gt;
+     key_file: &lt;您的私钥路径&gt;</p>
+</li>
+</ol>
+<p>其中，<code>username</code> 为登录到目标机器的用户名，确保您的用户名有 observer 进程工作目录 <code>home_path</code> 的权限。
+   <strong>注意</strong></p>
+<p>通常情况下，您只能使用登录密码或者私钥登录中的一种方式目标机器。</p>
+<ol>
+<li>
+<p>修改配置文件中的 IP 地址。</p>
+<p>oceanbase-ce:
+     servers:
+       - name: z1
+         # Please don't use hostname, only IP can be supported
+         ip: 11.166.80.01</p>
+</li>
+<li>
+<p>修改配置文件中的 <code>devname</code> 变量和 <code>home_path</code>。</p>
+<p>oceanbase-ce:
+     global:
+       home_path: <your_observer_work_path>
+       # Please set devname as the network adaptor's name whose ip is  in the setting of severs.
+       # if set severs as "127.0.0.1", please set devname as "lo"
+       # if current ip is 192.168.1.10, and the ip's network adaptor's name is "eth0", please use "eth0"
+       devname: bond0</p>
+</li>
+</ol>
+<p><strong>注意</strong></p>
+<p>您需要拥有 <code>home_path</code> 目录的权限。</p>
+<h2 id="oceanbase">启动 OceanBase 数据库</h2>
+<ol>
+<li>
+<p>运行以下命令部署集群：</p>
+<p>obd cluster deploy <deploy_name> -c <deploy_config_path></p>
+</li>
+</ol>
+<p>其中，<code>deploy_name</code> 为集群名称。一个集群只能有一个名称，且集群名称不能重复。</p>
+<ol>
+<li>
+<p>运行以下命令启动集群：</p>
+<p>obd cluster start <deploy_name> </p>
+</li>
+<li>
+<p>运行以下命令查看集群状态：</p>
+<p>obd cluster display <deploy_name></p>
+</li>
+</ol>
+<h2 id="oceanbase_1">连接 OceanBase 数据库</h2>
+<p>按照以下步骤连接 OceanBase 数据库：</p>
+<ol>
+<li>安装 OceanBase 数据库客户端 OBClient：</li>
+</ol>
+<p>如您的机器已添加 OceanBase 官方 YUM 源作为软件源，使用以下命令直接安装：</p>
+<pre><code>   sudo yum install -y obclient
+</code></pre>
+<p>否则您需要在机器上准备好离线安装包，并执行以下命令安装：</p>
+<pre><code>   sudo yum install -y libobclient-2.0.0-2.el7.x86_64.rpm
+   sudo yum install -y obclient-2.0.0-2.el7.x86_64.rpm
+</code></pre>
+<p><strong>注意</strong></p>
+<p>您必须首先下载 OBClient 的依赖包 LibOBClient。示例中的安装包可能不是最新版本，建议您下载最新的安装包。详细信息，参考 <a href="https://open.oceanbase.com/softwareCenter/community">下载中心</a>。</p>
+<ol>
+<li>
+<p>运行以下命令，使用 OBClient 客户端连接 OceanBase 数据库：</p>
+<p>obclient -h<your_ip> -P<observer_mysql_port> -uroot</p>
+</li>
+</ol>
+<p>其中，<code>your_ip</code> 为您 OceanBase 实例所在的机器 IP 地址。<code>observer</code> 默认使用端口 <code>2881</code> 连接 OBClient。如果您对端口做了更改，此处使用您实际的端口号。</p>
+<p>返回以下信息：</p>
+<pre><code>   Welcome to the MariaDB monitor.  Commands end with ; or \g.
+   Your MySQL connection id is 3221546072
+   Server version: 5.7.25 OceanBase 3.1.0 (r1-) (Built Apr  7 2021 08:14:49)
+
+   Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+   Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+   MySQL [(none)]&gt;
+</code></pre>
+<h2 id="_4">（可选）验证集群</h2>
+<p>连接 OceanBase 数据库，运行以下命令验证集群：</p>
+<pre><code>MySQL [oceanbase]&gt; USE oceanbase; 
+MySQL [oceanbase]&gt; SELECT * FROM __all_server;
+</code></pre>
+<p>返回以下结果：</p>
+<pre><code>+----------------------------+----------------------------+---------------+----------+----+-------+------------+-----------------+--------+-----------------------+--------------------------------+-----------+--------------------+--------------+----------------+-------------------+
+| gmt_create                 | gmt_modified               | svr_ip        | svr_port | id | zone  | inner_port | with_rootserver | status | block_migrate_in_time | build_version                  | stop_time | start_service_time | first_sessid | with_partition | last_offline_time |
++----------------------------+----------------------------+---------------+----------+----+-------+------------+-----------------+--------+-----------------------+--------------------------------+-----------+--------------------+--------------+----------------+-------------------+
+| 2021-04-21 10:59:04.967158 | 2021-04-21 10:59:20.344774 | 11.166.80.01  |    2882 |  1 | zone1 |      2881 |               1 | active |                     0 | 3.1.0_1-(Apr  7 2021 08:14:49) |         0 |   1618973957346877 |            0 |              1 |                 0 |
+| 2021-04-21 10:59:04.956632 | 2021-04-21 10:59:20.223340 | 11.166.80.02  |    2882 |  2 | zone2 |      2881 |               0 | active |                     0 | 3.1.0_1-(Apr  7 2021 08:14:49) |         0 |   1618973958225270 |            0 |              1 |                 0 |
+| 2021-04-21 10:59:03.956853 | 2021-04-21 10:59:22.415147 | 11.166.81.103 |    2882 |  3 | zone3 |      2881 |               0 | active |                     0 | 3.1.0_1-(Apr  7 2021 08:14:49) |         0 |   1618973958416271 |            0 |              1 |                 0 |
++----------------------------+----------------------------+---------------+----------+----+-------+------------+-----------------+--------+-----------------------+--------------------------------+-----------+--------------------+--------------+----------------+-------------------+
+3 rows in set (0.00 sec)
+</code></pre>
+<p>以上返回结果说明集群部署成功。</p>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../3.use-obd-to-obtain-the-oceanbase-database/" class="md-footer__link md-footer__link--prev" aria-label="Previous: 安装 OBD" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              安装 OBD
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../5.sgco3g/" class="md-footer__link md-footer__link--next" aria-label="Next: OceanBase 数据库通用问题排查方法" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              OceanBase 数据库通用问题排查方法
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+        
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.477d984a.min.js", "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.ddd52ceb.min.js"></script>
+      
+    
+  </body>
+</html>

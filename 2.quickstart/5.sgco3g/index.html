@@ -1,0 +1,1088 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.1.11">
+    
+    
+      
+        <title>OceanBase 数据库通用问题排查方法 - <SITE NAME></title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.3754935a.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.f1a3b89f.min.css">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+    
+    
+      
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+  
+    
+    <script>function __prefix(e){return new URL("../..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#oceanbase" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="&lt;SITE NAME&gt;" class="md-header__button md-logo" aria-label="<SITE NAME>" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            <SITE NAME>
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              OceanBase 数据库通用问题排查方法
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="&lt;SITE NAME&gt;" class="md-nav__button md-logo" aria-label="<SITE NAME>" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <SITE NAME>
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      <label class="md-nav__link" for="__nav_2">
+        了解 OceanBase 数据库
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="了解 OceanBase 数据库" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          了解 OceanBase 数据库
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1.about-oceanbase-database/1.what-is-oceanbase/" class="md-nav__link">
+        什么是 OceanBase 数据库
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1.about-oceanbase-database/2.noun-interpretation/" class="md-nav__link">
+        名词解释
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
+      
+      <label class="md-nav__link" for="__nav_3">
+        快速入门
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="快速入门" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          快速入门
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1.quick-start-guide/" class="md-nav__link">
+        快速入门指南
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.deploy-an-oceanbase-database-by-using-docker/" class="md-nav__link">
+        在 CentOS7 镜像上部署 OceanBase 数据库
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3.use-obd-to-obtain-the-oceanbase-database/" class="md-nav__link">
+        安装 OBD
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4.deploy-the-oceanbase-database-by-using-obd/" class="md-nav__link">
+        使用 OBD 部署 OceanBase 数据库
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          OceanBase 数据库通用问题排查方法
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        OceanBase 数据库通用问题排查方法
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    进程日志
+  </a>
+  
+    <nav class="md-nav" aria-label="进程日志">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    日志内容格式
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    日志名称格式
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trace" class="md-nav__link">
+    TRACE 能力
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#id" class="md-nav__link">
+    根据线程 ID 搜索日志
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    内部表
+  </a>
+  
+    <nav class="md-nav" aria-label="内部表">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    表的基础信息
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#location" class="md-nav__link">
+    Location 信息
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sql_audit" class="md-nav__link">
+    sql_audit
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      <label class="md-nav__link" for="__nav_4">
+        安装部署
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="安装部署" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          安装部署
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../4.installation-and-deployment/1.resource-preparation/" class="md-nav__link">
+        资源准备
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../4.installation-and-deployment/2.install-the-oceanbase-database-by-using-the-rpm-package/" class="md-nav__link">
+        使用 RPM 包安装 OceanBase 数据库
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../4.installation-and-deployment/3.get-the-oceanbase-database-by-using-source-code/" class="md-nav__link">
+        使用源码构建 OceanBase 数据库
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      <label class="md-nav__link" for="__nav_5">
+        社区贡献
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="社区贡献" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          社区贡献
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../15.community-contribution/15.1%20how-to-contribute/" class="md-nav__link">
+        如何贡献
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    进程日志
+  </a>
+  
+    <nav class="md-nav" aria-label="进程日志">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    日志内容格式
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    日志名称格式
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trace" class="md-nav__link">
+    TRACE 能力
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#id" class="md-nav__link">
+    根据线程 ID 搜索日志
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    内部表
+  </a>
+  
+    <nav class="md-nav" aria-label="内部表">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    表的基础信息
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#location" class="md-nav__link">
+    Location 信息
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sql_audit" class="md-nav__link">
+    sql_audit
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="oceanbase">OceanBase 数据库通用问题排查方法</h1>
+<p>OceanBase 数据库问题排查主要依赖进程日志、内部表以及代码的执行流程。本文介绍如何通过进程日志和内部表排查 OceanBase 数据库的通用问题。</p>
+<h2 id="_1">进程日志</h2>
+<p>由于内部表的功能针对性较强，对于不明确的问题，我们推荐您优先使用进程日志排查问题。</p>
+<p>OceanBase 数据库的进程日志分为 <code>observer.log</code>、<code>rootservice.log</code> 和 <code>election.log</code>。其中 <code>election.log</code> 记录选举相关日志，<code>rootservice.log</code> 记录 rootservice 模块的日志，<code>observer.log</code> 记录通用日志。{#uf4c4f767}</p>
+<h3 id="_2">日志内容格式</h3>
+<p>OceanBase 数据库的进程日志格式如下：</p>
+<pre><code>[2021-06-11 16:30:02.372655] ERROR [BOOTSTRAP] bootstrap (ob_service.cpp:2656) [32075][428][YB420A27C94E-0005C47950223003] [lt=3] [dc=0] failed to prepare boot strap(rs_list=[region:"sys_region", zone:"z1", server:"127.0.0.1:2882", 
+region:"sys_region", zone:"z2", server:"127.0.0.2:2882", region:"sys_region", zone:"z3", server:"127.0.0.3:2882"], ret=-4012) BACKTRACE:0x90a107e 0x90090c1 
+0x24d1eef 0x24d1b3b 0x24d1900 0x66678b1 0x882bb40 0x8912d74 0x91c24f8 0x8a5d45f
+0x8a5d08d 0x8a5841f 0x8a5770d 0x8a57b17 0x2a55b14 0x8ebc475 0x8eb9e4e 0x8eb46ef
+</code></pre>
+<p>其中，</p>
+<ul>
+<li>
+<p><code>[2021-06-11 16:30:02.372655]</code> 是时间戳。</p>
+</li>
+<li>
+<p><code>ERROR</code> 是日志级别。日志级别有 <code>INFO</code>、<code>WARN</code>、<code>TRACE</code> 和 <code>DEBUG</code>。</p>
+</li>
+</ul>
+<!-- -->
+
+<ul>
+<li>
+<p><code>[BOOTSTRAP]</code> 是模块名称，其他模块还有 SQL、STORAGE、COMMON 等。</p>
+</li>
+<li>
+<p><code>bootstrap</code> 是函数名。</p>
+</li>
+</ul>
+<!-- -->
+
+<ul>
+<li>
+<p><code>ob_service.cpp:2656</code> 是文件名和行号。</p>
+</li>
+<li>
+<p><code>[32075]</code> 是线程 ID。</p>
+</li>
+</ul>
+<!-- -->
+
+<ul>
+<li>
+<p><code>[428]</code> 是协程编号。</p>
+</li>
+<li>
+<p><code>[YB420A27C94E-0005C47950223003]</code> 是 <code>trace_id</code>，同一个请求携带同一个 <code>trace_id</code>。</p>
+</li>
+</ul>
+<!-- -->
+
+<ul>
+<li>
+<p><code>[lt=3]</code> 是日志前端格式化时间，通常无意义。</p>
+</li>
+<li>
+<p><code>[dc=0]</code> 无意义。</p>
+</li>
+</ul>
+<!-- -->
+
+<ul>
+<li>
+<p><code>failed to prepare boot strap</code> 及之后内容是日志的具体内容。</p>
+</li>
+<li>
+<p><code>ret=-4012</code> 表示错误码为 -4012，-4012 的语义是 <code>OB_TIMEOUT</code>，可以通过 <code>ob_errno.h</code> 查询。</p>
+</li>
+<li>
+<p><code>BACKTRACE</code> 是调用栈的地址，可以通过 addr2line 等工具解析函数的调用栈。</p>
+</li>
+</ul>
+<h3 id="_3">日志名称格式</h3>
+<p>进程日志名称后缀中的数字表示该日志文件中最后一条日志的时间戳。例如，<code>observer.log.20210617143216</code> 后缀中的 <code>20210617143216</code> 表示该文件最后一条日志的时间戳是 <code>2021-06-17 14:32:16</code>。
+带有 <code>wf</code> 后缀的文件只记录 <code>WARN</code> 及以上级别的日志。您可以通过配置项 <code>enable_syslog_wf</code> 关闭 <code>wf</code> 日志。
+更多日志文件的配置项请通过 <code>sys</code> 租户执行 <code>show parameters like '%syslog%'</code> 命令查看。</p>
+<h3 id="trace">TRACE 能力</h3>
+<p>OceanBase 数据库打印进程日志时会携带 <code>trace_id</code>，一个请求执行的整个生命周期都会携带同一个 <code>trace_id</code>，因此在进程日志中搜索 <code>trace_id</code> 可以拿到一个请求的全部执行过程。</p>
+<p><strong>last_trace_id</strong> </p>
+<p>使用 <code>select last_trace_id();</code> 语句可以直接查看上一条语句的执行节点和 <code>trace_id</code>，然后在日志中运行 <code>grep</code> 命令查找相关信息。</p>
+<pre><code>obclient&gt; SELECT last_trace_id();
++--------------------------------------------------------+
+| last_trace_id()                                        |
++--------------------------------------------------------+
+| 127.0.0.1:2882, TraceId: YB427F000001-0005C4DB8B546938 |
++--------------------------------------------------------+
+1 row in set (0.01 sec)
+
+
+
+grep "YB427F000001-0005C4DB8B546938" observer.log
+</code></pre>
+<p><strong>trace_log</strong> </p>
+<p>OceanBase 数据库支持执行请求时打开 <code>trace_log</code>。您可以通过以下两种方式打开 <code>trace_log</code>：</p>
+<ul>
+<li>
+<p>通过 Hint 中的<code>trace_log</code> 字段，这种方式只对携带 Hint 的当前语句生效。使用 Hint 要求 OBClient 在连接 OceanBase 数据库时携带 <code>-c</code> 选项，否则 Hint 会被忽略。更多 Hint 操作，参考 <a href="https://open.oceanbase.com/docs/community/oceanbase-database/V3.1.0/optimizer-hint-1">Optimizer Hint</a>。</p>
+</li>
+<li>
+<p>通过 Session 变量 <code>ob_enable_trace_log</code>，这种方式对这个 Session 的后续所有语句生效。</p>
+</li>
+</ul>
+<p>打开 <code>trace_log</code> 后，通过 <code>SHOW TRACE</code> 语句可以拿到上一次的 <code>trace_log</code>，从而获取 <code>trace_id</code>。同时 <code>SHOW TRACE</code> 还可以看到这条请求大致的性能统计。</p>
+<pre><code>obclient&gt; SHOW TRACE;
++------------------------------+----------------------------------------------------------------------------+------+
+| Title                        | KeyValue                                                                   | Time |
++------------------------------+----------------------------------------------------------------------------+------+
+| process begin                | in_queue_time:12, receive_ts:1623988240448815, enqueue_ts:1623988240448816 | 0    |
+| query begin                  | trace_id:YC1E64586A5D-0005C4C77E56FA98                                     | 2    |
+| parse begin                  | stmt:"select count(*) from t1", stmt_len:23                                | 49   |
+| pc get plan begin            |                                                                            | 7    |
+| pc get plan end              |                                                                            | 18   |
+| transform_with_outline begin |                                                                            | 2    |
+| transform_with_outline end   |                                                                            | 45   |
+| resolve begin                |                                                                            | 22   |
+| resolve end                  |                                                                            | 130  |
+| transform begin              |                                                                            | 40   |
+| transform end                |                                                                            | 138  |
+| optimizer begin              |                                                                            | 2    |
+| get location cache begin     |                                                                            | 96   |
+| get location cache end       |                                                                            | 108  |
+| optimizer end                |                                                                            | 272  |
+| cg begin                     |                                                                            | 0    |
+| cg end                       |                                                                            | 984  |
+| execution begin              | arg1:false, end_trans_cb:false                                             | 78   |
+| do open plan begin           | plan_id:197                                                                | 29   |
+| sql start stmt begin         |                                                                            | 1    |
+| sql start stmt end           |                                                                            | 1    |
+| execute plan begin           |                                                                            | 0    |
+| execute plan end             |                                                                            | 9    |
+| sql start participant begin  |                                                                            | 0    |
+| sql start participant end    |                                                                            | 1    |
+| do open plan end             |                                                                            | 0    |
+| table scan begin             |                                                                            | 11   |
+| table scan end               |                                                                            | 42   |
+| start_close_plan begin       |                                                                            | 1344 |
+| start_end_participant begin  |                                                                            | 13   |
+| start_end_participant end    |                                                                            | 1    |
+| start_close_plan end         |                                                                            | 1    |
+| start_auto_end_plan begin    |                                                                            | 2    |
+| start_auto_end_plan end      |                                                                            | 1    |
+| execution end                |                                                                            | 2    |
+| query end                    |                                                                            | 52   |
+| NULL                         | PHY_SCALAR_AGGREGATE                                                       |      |
+| t1                           |  PHY_TABLE_SCAN                                                            |      |
++------------------------------+----------------------------------------------------------------------------+------+
+38 rows in set (0.01 sec)
+</code></pre>
+<p>使用示例如下：</p>
+<pre><code># 语句级
+obclient&gt; SELECT /*+ trace_log=on */c1 FROM t1 LIMIT 2;
+obclient&gt; SHOW TRACE;
+
+# Session 级
+obclient&gt; SET ob_enable_trace_log = 'ON';
+obclient&gt; SELECT COUNT(*) FROM t1;
+obclient&gt; SHOW TRACE;
+</code></pre>
+<h3 id="id">根据线程 ID 搜索日志</h3>
+<p>如果您未找到有效的 <code>trace_id</code>，或者 OceanBase 数据库的某些后台线程未设置 <code>trace_id</code>，您可以根据线程 ID 搜索日志。例如：</p>
+<pre><code>grep -F "[32075]" observer.log
+</code></pre>
+<h2 id="_4">内部表</h2>
+<p>OceanBase 数据库的内部表比较多，本节仅介绍部分常见的通用表，其他类型的内部表（例如集群管控、性能视图、迁移复制、合并转储等）参考 <a href="">系统视图</a>。</p>
+<p>本文中的内部表默认是 root 用户在 sys 租户的 OceanBase 数据库中可见的表（连接串示例：<code>obclient -u root@sys -D oceanbase</code>），下文不再指定数据库名称。</p>
+<h3 id="_5">表的基础信息</h3>
+<p>您可以通过系统租户的 <code>__all_virtual_table</code> 表可以获取 <code>table_id</code>、<code>table_name</code> 等基本信息。</p>
+<pre><code>obclient&gt; DESCRIBE __all_virtual_table;
++--------------------------------------+---------------------+------+-----+----------------+-------+
+| Field                                | Type                | Null | Key | Default        | Extra |
++--------------------------------------+---------------------+------+-----+----------------+-------+
+| tenant_id                            | bigint(20)          | NO   | PRI | NULL           |       |
+| table_id                             | bigint(20)          | NO   | PRI | NULL           |       |
+| gmt_create                           | timestamp(6)        | NO   |     | NULL           |       |
+| gmt_modified                         | timestamp(6)        | NO   |     | NULL           |       |
+| table_name                           | varchar(256)        | NO   |     |                |       |
+| database_id                          | bigint(20)          | NO   |     | NULL           |       |
+| table_type                           | bigint(20)          | NO   |     | NULL           |       |
+| load_type                            | bigint(20)          | NO   |     | NULL           |       |
+| def_type                             | bigint(20)          | NO   |     | NULL           |       |
+| rowkey_column_num                    | bigint(20)          | NO   |     | NULL           |       |
+| index_column_num                     | bigint(20)          | NO   |     | NULL           |       |
+| max_used_column_id                   | bigint(20)          | NO   |     | NULL           |       |
+| replica_num                          | bigint(20)          | NO   |     | NULL           |       |
+| autoinc_column_id                    | bigint(20)          | NO   |     | NULL           |       |
+| auto_increment                       | bigint(20) unsigned | YES  |     | 1              |       |
+| read_only                            | bigint(20)          | NO   |     | NULL           |       |
+| rowkey_split_pos                     | bigint(20)          | NO   |     | NULL           |       |
+| compress_func_name                   | varchar(128)        | NO   |     | NULL           |       |
+| expire_condition                     | varchar(4096)       | NO   |     | NULL           |       |
+| is_use_bloomfilter                   | bigint(20)          | NO   |     | NULL           |       |
+| comment                              | varchar(4096)       | NO   |     |                |       |
+| block_size                           | bigint(20)          | NO   |     | NULL           |       |
+| collation_type                       | bigint(20)          | NO   |     | NULL           |       |
+| data_table_id                        | bigint(20)          | YES  |     | NULL           |       |
+| index_status                         | bigint(20)          | NO   |     | NULL           |       |
+| tablegroup_id                        | bigint(20)          | NO   |     | NULL           |       |
+| progressive_merge_num                | bigint(20)          | NO   |     | NULL           |       |
+| index_type                           | bigint(20)          | NO   |     | NULL           |       |
+| part_level                           | bigint(20)          | NO   |     | NULL           |       |
+| part_func_type                       | bigint(20)          | NO   |     | NULL           |       |
+| part_func_expr                       | varchar(4096)       | NO   |     | NULL           |       |
+| part_num                             | bigint(20)          | NO   |     | NULL           |       |
+| sub_part_func_type                   | bigint(20)          | NO   |     | NULL           |       |
+| sub_part_func_expr                   | varchar(4096)       | NO   |     | NULL           |       |
+| sub_part_num                         | bigint(20)          | NO   |     | NULL           |       |
+| create_mem_version                   | bigint(20)          | NO   |     | NULL           |       |
+| schema_version                       | bigint(20)          | NO   |     | NULL           |       |
+| view_definition                      | longtext            | NO   |     | NULL           |       |
+| view_check_option                    | bigint(20)          | NO   |     | NULL           |       |
+| view_is_updatable                    | bigint(20)          | NO   |     | NULL           |       |
+| zone_list                            | varchar(8192)       | NO   |     | NULL           |       |
+| primary_zone                         | varchar(128)        | YES  |     | NULL           |       |
+| index_using_type                     | bigint(20)          | NO   |     | 0              |       |
+| parser_name                          | varchar(128)        | YES  |     | NULL           |       |
+| index_attributes_set                 | bigint(20)          | YES  |     | 0              |       |
+| locality                             | varchar(4096)       | NO   |     |                |       |
+| tablet_size                          | bigint(20)          | NO   |     | 134217728      |       |
+| pctfree                              | bigint(20)          | NO   |     | 10             |       |
+| previous_locality                    | varchar(4096)       | NO   |     |                |       |
+| max_used_part_id                     | bigint(20)          | NO   |     | -1             |       |
+| partition_cnt_within_partition_table | bigint(20)          | NO   |     | -1             |       |
+| partition_status                     | bigint(20)          | YES  |     | 0              |       |
+| partition_schema_version             | bigint(20)          | YES  |     | 0              |       |
+| max_used_constraint_id               | bigint(20)          | YES  |     | NULL           |       |
+| session_id                           | bigint(20)          | YES  |     | 0              |       |
+| pk_comment                           | varchar(4096)       | NO   |     |                |       |
+| sess_active_time                     | bigint(20)          | YES  |     | 0              |       |
+| row_store_type                       | varchar(128)        | YES  |     | FLAT_ROW_STORE |       |
+| store_format                         | varchar(128)        | YES  |     |                |       |
+| duplicate_scope                      | bigint(20)          | YES  |     | 0              |       |
+| binding                              | tinyint(4)          | YES  |     | 0              |       |
+| progressive_merge_round              | bigint(20)          | YES  |     | 0              |       |
+| storage_format_version               | bigint(20)          | YES  |     | 2              |       |
+| table_mode                           | bigint(20)          | NO   |     | 0              |       |
+| encryption                           | varchar(128)        | YES  |     |                |       |
+| tablespace_id                        | bigint(20)          | NO   |     | -1             |       |
+| drop_schema_version                  | bigint(20)          | NO   |     | -1             |       |
+| is_sub_part_template                 | tinyint(4)          | NO   |     | 1              |       |
+| dop                                  | bigint(20)          | NO   |     | 1              |       |
+| character_set_client                 | bigint(20)          | NO   |     | 0              |       |
+| collation_connection                 | bigint(20)          | NO   |     | 0              |       |
+| auto_part_size                       | bigint(20)          | NO   |     | -1             |       |
+| auto_part                            | tinyint(4)          | NO   |     | 0              |       |
++--------------------------------------+---------------------+------+-----+----------------+-------+
+73 rows in set (0.00 sec)
+</code></pre>
+<h3 id="location">Location 信息</h3>
+<p>OceanBase 数据库是分布式数据库，与传统数据库相比，需要 Location 信息来定位处理请求的具体节点。OceanBase 数据库使用 Paxos 协议做副本同步，对于 DML 请求和 Read Latest 类型的查询，都会路由到目标分区的 Leader 节点处理。</p>
+<p>Location 信息分为三级，即核心表 <code>__all_core_table</code>（系统租户的 1 号表）的位置，系统表的位置，普通表的位置。location 信息相关的内部表中，<code>role</code> 字段为 1 表示 Leader，2 表示 Follower。</p>
+<ul>
+<li>
+<p>核心表的位置信息可以通过系统租户的 <code>__all_virtual_core_meta_table</code> 表来查询，核心表所在的 OceanBase 数据库节点是 rootserver，所以也可以通过 <code>__all_server</code> 表的 <code>with_rootserver</code> 字段找到核心表 Leader 的位置。</p>
+</li>
+<li>
+<p>系统表的位置信息可以通过系统租户的 <code>__all_root_table</code> 查询。</p>
+</li>
+</ul>
+<!-- -->
+
+<ul>
+<li>普通表的位置信息可以通过 <code>meta_table</code> 表查询，对于系统租户，可以查询 <code>__all_virtual_meta_table</code>。对于普通租户，可以查询 <code>__all_tenant_meta_table</code>。</li>
+</ul>
+<h3 id="sql_audit">sql_audit</h3>
+<p>OceanBase 数据库支持 SQL 监控，可以通过配置项 <code>enable_sql_audit</code>（默认打开）和 Session 变量 <code>ob_enable_sql_audit</code>（默认打开）控制。监控信息存储在 <code>gv$sql_audit</code> 视图中。您通过 <code>query_sql</code> 等字段搜索目标 SQL 语句的监控记录获取 <code>trace_id</code>、执行时间、返回行数等信息。</p>
+<p><code>sql_audit</code> 表的容量有限，早期的记录可能会被后来的请求覆盖，<code>sql_audit</code> 表的容量可以通过配置项 <code>sql_audit_queue_size</code>、<code>sql_audit_memory_limit</code> 以及 Session 变量 <code>ob_sql_audit_percentage</code> 设置。</p>
+<pre><code>obclient&gt; select * from gv$sql_audit where query_sql like 'select count(*) from t1%'\G
+*************************** 1. row ***************************
+                 SVR_IP: 127.0.0.1
+               SVR_PORT: 3102
+             REQUEST_ID: 20
+            SQL_EXEC_ID: 12803933
+               TRACE_ID: YC1E64586A5D-0005C4C77E56FA98
+                    SID: 3221639668
+              CLIENT_IP: 127.0.0.1
+            CLIENT_PORT: 38101
+              TENANT_ID: 1001
+            TENANT_NAME: my_tenant
+    EFFECTIVE_TENANT_ID: 1001
+                USER_ID: 1100611139404777
+              USER_NAME: my_user
+             USER_GROUP: 0
+         USER_CLIENT_IP: 127.0.0.1
+                  DB_ID: 1100611139404776
+                DB_NAME: test
+                 SQL_ID: 69AE2D9E3BF106CE009F93EFAF925EC8
+              QUERY_SQL: select count(*) from t1
+                PLAN_ID: 197
+          AFFECTED_ROWS: 0
+            RETURN_ROWS: 1
+          PARTITION_CNT: 1
+               RET_CODE: 0
+                  QC_ID: 0
+                 DFO_ID: 0
+                 SQC_ID: 0
+              WORKER_ID: 0
+                  EVENT: system internal wait
+                 P1TEXT:
+                     P1: 0
+                 P2TEXT:
+                     P2: 0
+                 P3TEXT:
+                     P3: 0
+                  LEVEL: 0
+          WAIT_CLASS_ID: 100
+            WAIT_CLASS#: 0
+             WAIT_CLASS: OTHER
+                  STATE: MAX_WAIT TIME ZERO
+        WAIT_TIME_MICRO: 0
+  TOTAL_WAIT_TIME_MICRO: 0
+            TOTAL_WAITS: 0
+              RPC_COUNT: 0
+              PLAN_TYPE: 1
+           IS_INNER_SQL: 0
+        IS_EXECUTOR_RPC: 0
+            IS_HIT_PLAN: 0
+           REQUEST_TIME: 1623988240448815
+           ELAPSED_TIME: 3465
+               NET_TIME: 0
+          NET_WAIT_TIME: 0
+             QUEUE_TIME: 20
+            DECODE_TIME: 1
+          GET_PLAN_TIME: 1960
+           EXECUTE_TIME: 1460
+  APPLICATION_WAIT_TIME: 0
+  CONCURRENCY_WAIT_TIME: 0
+      USER_IO_WAIT_TIME: 0
+          SCHEDULE_TIME: 0
+          ROW_CACHE_HIT: 0
+ BLOOM_FILTER_CACHE_HIT: 0
+        BLOCK_CACHE_HIT: 0
+  BLOCK_INDEX_CACHE_HIT: 0
+             DISK_READS: 0
+              RETRY_CNT: 0
+             TABLE_SCAN: 1
+      CONSISTENCY_LEVEL: 3
+MEMSTORE_READ_ROW_COUNT: 1
+ SSSTORE_READ_ROW_COUNT: 0
+    REQUEST_MEMORY_USED: 2096128
+  EXPECTED_WORKER_COUNT: 0
+      USED_WORKER_COUNT: 0
+             SCHED_INFO:
+     FUSE_ROW_CACHE_HIT: 0
+             PS_STMT_ID: 0
+       TRANSACTION_HASH: 0
+           REQUEST_TYPE: 2
+  IS_BATCHED_MULTI_STMT: 0
+          OB_TRACE_INFO:
+              PLAN_HASH: 2598000370345801882
+     LOCK_FOR_READ_TIME: 0
+  WAIT_TRX_MIGRATE_TIME: 0
+1 row in set (0.65 sec)
+</code></pre>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../4.deploy-the-oceanbase-database-by-using-obd/" class="md-footer__link md-footer__link--prev" aria-label="Previous: 使用 OBD 部署 OceanBase 数据库" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              使用 OBD 部署 OceanBase 数据库
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../../4.installation-and-deployment/1.resource-preparation/" class="md-footer__link md-footer__link--next" aria-label="Next: 资源准备" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              资源准备
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+        
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.477d984a.min.js", "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.ddd52ceb.min.js"></script>
+      
+    
+  </body>
+</html>
