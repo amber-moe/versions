@@ -3,9 +3,33 @@ site_name: <SITE NAME>
 # repo_name: <USERNAME/REPOSITORY_NAME>
 edit_uri: ''
 plugins:
-  - mkdocs-versioning:
-      version: 1.0.0
+  # - mkdocs-versioning:
+  #     version: 1.0.0
+theme:
+  name: 'material'
 nav:
   - Home : 'index.md'
-  - Circle: 'circle.md'
-  - Version: '../'
+  # - Circle: 'circle.md'
+  # - Version: '../'
+  - 了解 OceanBase 数据库:
+    - 什么是 OceanBase 数据库: 1.about-oceanbase-database/1.what-is-oceanbase.md
+    - 名词解释: 1.about-oceanbase-database/2.noun-interpretation.md
+  
+  - 快速入门:
+    - 快速入门指南: 2.quickstart/1.quick-start-guide.md
+    - 在 CentOS7 镜像上部署 OceanBase 数据库: 2.quickstart/2.deploy-an-oceanbase-database-by-using-docker.md
+    - 安装 OBD: 2.quickstart/3.use-obd-to-obtain-the-oceanbase-database.md
+    - 使用 OBD 部署 OceanBase 数据库: 2.quickstart/4.deploy-the-oceanbase-database-by-using-obd.md
+    - OceanBase 数据库通用问题排查方法: 2.quickstart/5.sgco3g.md
+  
+  - 安装部署:
+    - 资源准备: 4.installation-and-deployment/1.resource-preparation.md
+    - 使用 RPM 包安装 OceanBase 数据库: 4.installation-and-deployment/2.install-the-oceanbase-database-by-using-the-rpm-package.md
+    - 使用源码构建 OceanBase 数据库: 4.installation-and-deployment/3.get-the-oceanbase-database-by-using-source-code.md
+  
+  - 社区贡献:
+    - 如何贡献: 15.community-contribution/15.1 how-to-contribute.md
+
+
+
+

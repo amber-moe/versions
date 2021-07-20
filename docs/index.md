@@ -1,17 +1,7 @@
-# Welcome to MkDocs
+# 欢迎使用 OceanBase 文档
 
-For full documentation visit [mkdocs.org](https://mkdocs.org).
+OceanBase is an enterprise distributed relational database with high availability, high performance, horizontal scalability, and compatibility with SQL standards.
 
-## Commands
+## 快速开始
 
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs help` - Print this help message.
-
-## Project layout
-
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
+* [快速开始](docs/../2.quickstart/1.quick-start-guide.md)
