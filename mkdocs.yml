@@ -2,15 +2,11 @@ site_name: <SITE NAME>
 # repo_url: <URL GOES HERE>
 # repo_name: <USERNAME/REPOSITORY_NAME>
 edit_uri: ''
-plugins:
-  # - mkdocs-versioning:
-  #     version: 1.0.0
 theme:
   name: 'material'
 nav:
   - Home : 'index.md'
-  # - Circle: 'circle.md'
-  # - Version: '../'
+  
   - 了解 OceanBase 数据库:
     - 什么是 OceanBase 数据库: 1.about-oceanbase-database/1.what-is-oceanbase.md
     - 名词解释: 1.about-oceanbase-database/2.noun-interpretation.md
