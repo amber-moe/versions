@@ -1,7 +1,7 @@
 site_name: OceanBase 手册
 repo_url: 'https://github.com/Amber1990Zhang/versions'
 repo_name: 'test doc'
-edit_uri: ''
+edit_uri: 'edit/master/docs/'
 theme:
   name: 'material'
 nav:
