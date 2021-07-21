@@ -1,6 +1,6 @@
-site_name: <SITE NAME>
-# repo_url: <URL GOES HERE>
-# repo_name: <USERNAME/REPOSITORY_NAME>
+site_name: OceanBase 手册
+repo_url: 'https://github.com/Amber1990Zhang/versions'
+repo_name: 'test doc'
 edit_uri: ''
 theme:
   name: 'material'
